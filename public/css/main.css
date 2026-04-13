@@ -1,0 +1,491 @@
+/**
+ * Copyright © Sabarna Barik 
+ * 
+ * This code is open-source for **educational and non-commercial purposes only**.
+ * 
+ * You may:
+ * - Read, study, and learn from this code.
+ * - Modify or experiment with it for personal learning.
+ * 
+ * You may NOT:
+ * - Claim this code as your own.
+ * - Use this code in commercial projects or for profit without written permission.
+ * - Distribute this code as your own work.
+ * 
+ * If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
+ * For commercial use or special permissions, contact: sabarnabarik@gmail.com
+ * 
+ * # Copyright © 2026 Sabarna Barik
+ * # Non-commercial use only. Credit required if used.
+ * 
+ * License:
+ * This project is open-source for learning only.
+ * Commercial use is prohibited.
+ * Credit is required if you use any part of this code.
+ */
+
+:root {
+    /* Pro Operational Palette */
+    --bg-pro: #020617;
+    --bg-panel: rgba(15, 23, 42, 0.85);
+    --bg-accent: #1e293b;
+    --border-pro: rgba(148, 163, 184, 0.15);
+    --border-active: rgba(99, 102, 241, 0.4);
+    
+    --text-pro: #f1f5f9;
+    --text-dim: #64748b;
+    
+    --pro-primary: #818cf8;
+    --pro-secondary: #0ea5e9;
+    --pro-warning: #f59e0b;
+    --pro-danger: #f43f5e;
+    --pro-success: #10b981;
+    
+    --pro-radius: 8px;
+    --pro-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+    
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.pro-ops-theme {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-pro);
+    color: var(--text-pro);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.pro-app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 12px;
+    gap: 12px;
+}
+
+/* Header */
+.ops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-pro);
+    border-radius: var(--pro-radius);
+    padding: 12px 24px;
+    backdrop-filter: blur(10px);
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-box {
+    width: 40px;
+    height: 40px;
+    background: var(--pro-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ops-icon { color: white; }
+
+.title-area h1 {
+    font-family: 'Outfit';
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pro-tag {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+.status-dot.green { background: var(--pro-success); box-shadow: 0 0 8px var(--pro-success); }
+
+.header-telemetry {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.telemetry-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.telemetry-item .label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-dim);
+}
+
+.telemetry-item .value {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.telemetry-item .value.success { color: var(--pro-success); }
+
+.clock-area {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    padding-left: 20px;
+    border-left: 1px solid var(--border-pro);
+}
+
+/* Grid Layout */
+.ops-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr 340px;
+    gap: 12px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.ops-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-pro);
+    border-radius: var(--pro-radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-dim);
+}
+
+.panel-head h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-pro);
+}
+
+.panel-head.sub { margin-top: 10px; border-top: 1px solid var(--border-pro); padding-top: 20px; }
+
+/* Left Wing: Predictive */
+.predictive-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.metric-card {
+    background: var(--bg-accent);
+    padding: 16px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 3px solid var(--pro-primary);
+}
+
+.metric-card.predictive {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), transparent);
+}
+
+.metric-label { font-size: 0.6rem; font-weight: 700; color: var(--text-dim); }
+.metric-value { font-family: var(--font-mono); font-size: 1.5rem; }
+
+.queue-tracking h3 {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.load-list { display: flex; flex-direction: column; gap: 12px; }
+
+.load-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.load-info { display: flex; justify-content: space-between; font-size: 0.7rem; }
+.load-bar-bg { height: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 2px; position: relative; }
+.load-bar-fg { height: 100%; border-radius: 2px; transition: width 0.4s ease; }
+
+/* Center Deck */
+.center-deck { border: 1px solid var(--border-active); padding: 0; }
+
+.panel-tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border-pro);
+}
+
+.tab-btn {
+    padding: 14px 24px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-weight: 700;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: 0.2s;
+    border-right: 1px solid var(--border-pro);
+}
+
+.tab-btn.active {
+    background: var(--bg-accent);
+    color: var(--pro-primary);
+    box-shadow: inset 0 -2px 0 var(--pro-primary);
+}
+
+.tab-content { display: none; flex-grow: 1; padding: 24px; }
+.tab-content.active { display: flex; flex-direction: column; }
+
+.map-wrapper-pro {
+    flex-grow: 1;
+    background: #000;
+    border-radius: var(--pro-radius);
+    position: relative;
+    border: 1px solid var(--border-pro);
+    overflow: hidden;
+}
+
+#stadium-map-pro {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-overlay-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+.legend-pro {
+    display: flex;
+    gap: 16px;
+    background: rgba(0,0,0,0.7);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    border: 1px solid var(--border-pro);
+}
+
+.l-item { display: flex; align-items: center; gap: 6px; }
+.box { width: 10px; height: 10px; border-radius: 2px; }
+.box.green { background: var(--pro-success); }
+.box.yellow { background: var(--pro-warning); }
+.box.red { background: var(--pro-danger); }
+
+/* Right Wing: Monitoring */
+.cctv-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.cctv-feed {
+    height: 120px;
+    background: #000;
+    border-radius: 4px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+}
+
+.feed-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+}
+
+.feed-overlay {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--pro-danger);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.feed-overlay::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--pro-danger);
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+.alerts-feed-pro {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Alert Styling Pro */
+.alert-pro {
+    background: var(--bg-accent);
+    border: 1px solid var(--border-pro);
+    border-radius: 4px;
+    padding: 12px;
+    position: relative;
+    animation: slide-in 0.3s ease-out;
+}
+
+.alert-pro.prediction { border-left: 3px solid var(--pro-primary); }
+.alert-pro.warning { border-left: 3px solid var(--pro-warning); }
+.alert-pro.critical { border-left: 3px solid var(--pro-danger); }
+
+.alert-pro-head { display: flex; justify-content: space-between; font-size: 0.6rem; color: var(--text-dim); margin-bottom: 4px; }
+.alert-pro-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 4px; }
+.alert-pro-body { font-size: 0.7rem; color: var(--text-dim); line-height: 1.4; }
+
+/* Fan View Pro */
+.fan-controls-pro { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.input-set label { font-size: 0.65rem; font-weight: 700; color: var(--text-dim); margin-bottom: 8px; display: block; }
+
+select {
+    width: 100%;
+    background: var(--bg-accent);
+    border: 1px solid var(--border-pro);
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.pro-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pro-chip {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-pro);
+    color: var(--text-dim);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.pro-chip.active { background: var(--pro-primary); color: white; border-color: var(--pro-primary); }
+
+.route-result-pro {
+    background: var(--bg-accent);
+    border: 1px solid var(--border-pro);
+    border-radius: var(--pro-radius);
+    padding: 24px;
+    flex-grow: 1;
+}
+
+/* Footer Controls */
+.ops-footer {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-pro);
+    border-radius: var(--pro-radius);
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.control-label { font-size: 0.6rem; font-weight: 700; color: var(--text-dim); letter-spacing: 2px; }
+
+.dock-controls { display: flex; gap: 40px; align-items: flex-start; }
+
+.control-grp { display: flex; flex-direction: column; gap: 8px; }
+.grp-label { font-size: 0.6rem; font-weight: 700; color: var(--text-dim); }
+
+.ops-btn {
+    padding: 8px 16px;
+    background: var(--bg-accent);
+    border: 1px solid var(--border-pro);
+    color: var(--text-pro);
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ops-btn:hover { background: #334155; }
+.ops-btn.risk { color: var(--pro-danger); border-color: rgba(244, 63, 94, 0.3); }
+.ops-btn.info { color: var(--pro-secondary); border-color: rgba(14, 165, 233, 0.3); }
+.ops-btn.hollow { background: transparent; border: 1px dashed var(--text-dim); }
+
+.ops-console {
+    flex-grow: 1;
+    background: #000;
+    border-radius: 4px;
+    padding: 12px;
+    height: 80px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+}
+
+.line.sys { color: var(--pro-success); }
+.line.warn { color: var(--pro-warning); }
+
+/* Animations */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes slide-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Stadium Path Pulse Animation Pro */
+.stadium-zone.critical {
+    animation: zone-pulse 2s infinite;
+}
+
+@keyframes zone-pulse {
+    0% { fill-opacity: 0.2; }
+    50% { fill-opacity: 0.5; }
+    100% { fill-opacity: 0.2; }
+}

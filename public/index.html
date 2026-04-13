@@ -1,0 +1,206 @@
+<!-- 
+Copyright © Sabarna Barik 
+
+This code is open-source for **educational and non-commercial purposes only**.
+
+You may:
+- Read, study, and learn from this code.
+- Modify or experiment with it for personal learning.
+
+You may NOT:
+- Claim this code as your own.
+- Use this code in commercial projects or for profit without written permission.
+- Distribute this code as your own work.
+
+If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
+For commercial use or special permissions, contact: sabarnabarik@gmail.com
+
+# Copyright © 2026 Sabarna Barik
+# Non-commercial use only. Credit required if used.
+
+License:
+This project is open-source for learning only.
+Commercial use is prohibited.
+Credit is required if you use any part of this code.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StadiumPulse Pro | Operational Excellence</title>
+    <meta name="description" content="Advanced predictive stadium operations and crowd control system.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="pro-ops-theme">
+    <div class="pro-app-container">
+        
+        <!-- TOP DECK: Global Metrics -->
+        <header class="ops-header">
+            <div class="header-main">
+                <div class="logo-box">
+                    <i data-lucide="shield-check" class="ops-icon"></i>
+                </div>
+                <div class="title-area">
+                    <h1>STADIUMPULSE <span class="pro-tag">PRO</span></h1>
+                    <div class="system-status">
+                        <span class="status-dot green"></span>
+                        <span class="status-text">SYSTEMS NOMINAL // INTELLIGENCE ENGINE ONLINE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-telemetry">
+                <div class="telemetry-item">
+                    <span class="label">LIVE COUNT</span>
+                    <span class="value" id="total-crowd-val">42,850</span>
+                </div>
+                <div class="telemetry-item">
+                    <span class="label">RISK LEVEL</span>
+                    <span class="value success" id="global-risk-val">LOW</span>
+                </div>
+                <div class="clock-area">
+                    <span id="live-clock-pro">17:21:09</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN DECK: 3-Column Layout -->
+        <main class="ops-grid">
+            
+            <!-- LEFT WING: Predictive Analysis -->
+            <aside class="ops-panel wing left-wing">
+                <div class="panel-head">
+                    <i data-lucide="trending-up"></i>
+                    <h2>PREDICTIVE ANALYTICS</h2>
+                </div>
+                <div class="predictive-metrics" id="predictive-container">
+                    <!-- Dynamic metrics like 'Overload probability', 'Velocity' -->
+                    <div class="metric-card">
+                        <span class="metric-label">FORECAST ACCURACY</span>
+                        <span class="metric-value">98.4%</span>
+                    </div>
+                    <div class="metric-card predictive" id="overload-forecast">
+                        <span class="metric-label">AVG. INFLOW VELOCITY</span>
+                        <span class="metric-value">12.4 p/s</span>
+                    </div>
+                </div>
+                <div class="queue-tracking">
+                    <h3>GATE LOAD BALANCING</h3>
+                    <div id="gate-load-list" class="load-list">
+                        <!-- Dynamic gate bars -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CENTER DECK: Map & Interaction -->
+            <section class="ops-panel center-deck">
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="map">LIVE HEATMAP</button>
+                    <button class="tab-btn" data-tab="fan">FAN VIEW GUIDANCE</button>
+                </div>
+
+                <div class="tab-content active" id="map-view">
+                    <div class="map-wrapper-pro">
+                        <div id="stadium-map-pro"></div>
+                        <div class="map-overlay-info">
+                            <div class="legend-pro">
+                                <div class="l-item"><span class="box green"></span> SAFE</div>
+                                <div class="l-item"><span class="box yellow"></span> MODERATE</div>
+                                <div class="l-item"><span class="box red"></span> CRITICAL</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="fan-view">
+                    <div class="fan-controls-pro">
+                        <div class="input-set">
+                            <label>ORIGIN SECTOR</label>
+                            <select id="gate-selector-pro">
+                                <option value="gate1">NORTH GATE</option>
+                                <option value="gate2">EAST GATE</option>
+                                <option value="gate3">SOUTH GATE</option>
+                                <option value="gate4">WEST GATE</option>
+                            </select>
+                        </div>
+                        <div class="input-set">
+                            <label>ADVISORY NEED</label>
+                            <div class="pro-chips">
+                                <button class="pro-chip active" data-need="entry">ENTRY</button>
+                                <button class="pro-chip" data-need="food">FOOD</button>
+                                <button class="pro-chip" data-need="toilet">RESTROOM</button>
+                                <button class="pro-chip" data-need="exit">EXIT</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="route-result-pro" class="route-result-pro">
+                         <div class="placeholder-pro">SELECT PARAMETERS FOR ADVISORY</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT WING: Monitoring & Alerts -->
+            <aside class="ops-panel wing right-wing">
+                <div class="panel-head">
+                    <i data-lucide="video"></i>
+                    <h2>LIVE MONITORING</h2>
+                </div>
+                <div class="cctv-grid">
+                    <div class="cctv-feed" id="feed-1">
+                        <div class="feed-label">CAM_01 // NORTH_PLAZA</div>
+                        <div class="feed-overlay">REC</div>
+                    </div>
+                    <div class="cctv-feed" id="feed-2">
+                        <div class="feed-label">CAM_04 // WEST_GATE</div>
+                        <div class="feed-overlay">LIVE</div>
+                    </div>
+                </div>
+                <div class="panel-head sub">
+                    <i data-lucide="zap"></i>
+                    <h2>INTELLIGENCE FEED</h2>
+                </div>
+                <div id="alerts-container-pro" class="alerts-feed-pro">
+                    <!-- Predictive alerts here -->
+                </div>
+            </aside>
+        </main>
+
+        <!-- BOTTOM DECK: Master Controls -->
+        <footer class="ops-footer">
+            <div class="control-label">MASTER OPERATIONS CONSOLE</div>
+            <div class="dock-controls">
+                <div class="control-grp">
+                    <span class="grp-label">SCENARIOS</span>
+                    <button class="ops-btn" onclick="startSimulation('halftime')">HALFTIME SURGE</button>
+                    <button class="ops-btn" onclick="startSimulation('entryMatch')">MATCH ENTRY</button>
+                    <button class="ops-btn risk" onclick="startSimulation('spikeGate4')">GATE OVERLOAD</button>
+                    <button class="ops-btn info" onclick="startSimulation('predictiveSpike')">PRED. SPIKE TEST</button>
+                </div>
+                <div class="control-grp">
+                    <span class="grp-label">SYSTEM</span>
+                    <button class="ops-btn hollow" onclick="resetDemo()">HARD RESET</button>
+                </div>
+                <div class="ops-console" id="admin-log-pro">
+                    <div class="line sys">> INITIALIZING PULSE_PRO_CORE_V2... SUCCESS.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/intelligence.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/simulations.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
