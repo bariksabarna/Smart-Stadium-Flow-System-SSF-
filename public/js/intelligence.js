@@ -1,62 +1,39 @@
 /**
- * Copyright © Sabarna Barik 
- * 
- * This code is open-source for **educational and non-commercial purposes only**.
- * 
- * You may:
- * - Read, study, and learn from this code.
- * - Modify or experiment with it for personal learning.
- * 
- * You may NOT:
- * - Claim this code as your own.
- * - Use this code in commercial projects or for profit without written permission.
- * - Distribute this code as your own work.
- * 
- * If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
- * For commercial use or special permissions, contact: sabarnabarik@gmail.com
- * 
- * # Copyright © 2026 Sabarna Barik
- * # Non-commercial use only. Credit required if used.
- * 
- * License:
- * This project is open-source for learning only.
- * Commercial use is prohibited.
- * Credit is required if you use any part of this code.
- */
-
-/**
  * StadiumPulse Pro Intelligence Layer
  * Prediction and Smoothing Engine
  */
 
-window.Intelligence = {
+export const Intelligence = {
     predictions: {},
     history: {},
     
     /**
      * Predictive Engine: Forecasts crowd levels based on velocity
      * Forecast = Current + (Velocity * TimeHorizon)
+     * @param {string} id - The unique identifier for the gate/zone
+     * @param {number} currentCrowd - Current occupancy percentage (0-100)
+     * @param {number} timeHorizonSeconds - How far in the future to project (default 120s)
+     * @returns {number} Predicted crowd level
      */
     predict(id, currentCrowd, timeHorizonSeconds = 120) {
         if (!this.history[id]) {
             this.history[id] = [];
         }
         
-        // Add current value to history for velocity calculation
         const now = Date.now();
         this.history[id].push({ t: now, v: currentCrowd });
         
-        // Keep only last 10 samples
+        // Keep last 10 samples for velocity calculation
         if (this.history[id].length > 10) this.history[id].shift();
         
         if (this.history[id].length < 2) return currentCrowd;
 
         const first = this.history[id][0];
         const last = this.history[id][this.history[id].length - 1];
-        const dt = (last.t - first.t) / 1000; // seconds
+        const dt = (last.t - first.t) / 1000; 
         const dv = last.v - first.v;
         
-        const velocity = dv / (dt || 1); // units per second
+        const velocity = dv / (dt || 1); 
         const predicted = currentCrowd + (velocity * timeHorizonSeconds);
         
         const result = Math.max(0, Math.min(100, Math.round(predicted)));
@@ -69,23 +46,35 @@ window.Intelligence = {
         return result;
     },
 
-    getRiskLevel(predictedValue) {
-        if (predictedValue > 85) return 'CRITICAL';
-        if (predictedValue > 70) return 'HIGH';
-        if (predictedValue > 50) return 'MODERATE';
+    /**
+     * Determines risk category based on predicted volume
+     * @param {number} value - Crowd percentage
+     * @returns {string} Risk category (CRITICAL, HIGH, MODERATE, LOW)
+     */
+    getRiskLevel(value) {
+        if (value >= 85) return 'CRITICAL';
+        if (value >= 70) return 'HIGH';
+        if (value >= 50) return 'MODERATE';
         return 'LOW';
     },
 
     /**
      * Smoothing Engine (LERP)
-     * For high-fidelity "live" movement feel
+     * Used for fluid UI transitions
+     * @param {number} current - Current visual value
+     * @param {number} target - Logic target value
+     * @param {number} factor - Smoothing factor
+     * @returns {number} New smoothed value
      */
     smooth(current, target, factor = 0.05) {
         return current + (target - current) * factor;
     },
 
     /**
-     * Reroute Recommendation Logic
+     * Routing Recommendation Engine
+     * @param {string} id - Component ID
+     * @param {number} predictedCrowd - Predicted occupancy
+     * @returns {Object|null} Recommendation object or null
      */
     getRecommendation(id, predictedCrowd) {
         if (predictedCrowd > 80) {

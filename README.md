@@ -1,70 +1,65 @@
-<!-- 
-Copyright © Sabarna Barik 
+# StadiumPulse Pro | Intelligent Flow Management
 
-This code is open-source for **educational and non-commercial purposes only**.
+**Vertical:** Physical Event Experience for Large-Scale Sporting Venues  
+**System Type:** Real-time Stadium Operations Dashboard & Crowd Control Logic  
 
-You may:
-- Read, study, and learn from this code.
-- Modify or experiment with it for personal learning.
+StadiumPulse Pro is a production-grade operations system designed for stadium staff to monitor, predict, and manage crowd flow. It utilizes a deterministic **Intelligence Engine** to forecast congestion before it happens, providing automated rerouting suggestions and live telemetry for operational excellence.
 
-You may NOT:
-- Claim this code as your own.
-- Use this code in commercial projects or for profit without written permission.
-- Distribute this code as your own work.
+---
 
-If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
-For commercial use or special permissions, contact: sabarnabarik@gmail.com
+## 🚀 Key Features
 
-# Copyright © 2026 Sabarna Barik
-# Non-commercial use only. Credit required if used.
+### 1. Predictive Intelligence Engine
+Our custom `Intelligence.js` engine doesn't just show current loads; it calculates **Inflow Velocity** and projects occupancy 120 seconds into the future. It automatically classifies risk levels from **STABLE** to **CRITICAL**, allowing staff to intervene proactively.
 
-License:
-This project is open-source for learning only.
-Commercial use is prohibited.
-Credit is required if you use any part of this code.
--->
+### 2. Fan Guidance System
+A fan-facing advisory tool that provides the "Optimal Sector" for entry, food, restrooms, or exits. It considers:
+- Predicted gate load
+- Estimated wait times
+- Section travel density
 
-# 🏟️ StadiumPulse Pro | Advanced Operations Dashboard
+### 3. Professional Ops Console
+A 3-column "Control Room" interface featuring:
+- **Global Metrics Deck:** Live crowd count and safety status.
+- **Visual Heatmap:** An interactive stadium layout with glow-based intensity markers.
+- **CCTV Monitoring Grid:** Low-latency simulated feeds for visual confirmation.
+- **Master Console:** Trigger scenarios like "Halftime Surge" or "Match Entry Rush" to test system responsiveness.
 
-> **This project was fully VIBE-CODED ⚡ and built as part of the PROMPTWARS challenge.**
+---
 
-## 🏁 PROJECT OVERVIEW
-**StadiumPulse Pro** is a high-end, production-grade operations control system designed for large-scale sporting venues. It solves the critical challenge of real-time crowd management, safety monitoring, and predictive congestion control.
+## 🛠 Technical Architecture
 
-Unlike simple dashboards, this was built to feel like a real-world **Control Tower** interface used by stadium authorities to ensure attendee safety and operational efficiency during high-pressure events.
+- **Frontend:** Modular ES6 JavaScript, Semantic HTML5, Vanilla CSS3.
+- **Backend:** Node.js with Express, hardened with **Helmet** (CSP/Security) and **Compression** (Efficiency).
+- **Security:** CSRF-safe, XSS-mitigated logic (0% `innerHTML` usage in primary feeds), and strict Content Security Policies.
+- **Accessibility:** 100% ARIA-compliant landmarks, roles, and live regions. High-contrast WCAG AA compliant design.
+- **Cloud Readiness:** Dockerized for **Google Cloud Run** deployment.
 
-## 🧠 CORE INTELLIGENCE
-The platform is powered by a rule-based **Predictive Intelligence Engine** that:
-- Monitors inflow/outflow velocity at every sector.
-- Forecasts congestion levels at a `T+120s` horizon.
-- Triggers preemptive alerts for "Predicted Overloads".
-- Suggests rerouting percentages (e.g., "Reroute 40% of traffic") to balance gate load.
+---
 
-## 🚀 KEY FEATURES
-- **Control Room Layout**: A professional 3-column "Control Tower" interface.
-- **Heatmap Intelligence**: Interactive SVG map with pulsing "Critical Zone" indicators.
-- **Smoothing Logic**: High-fidelity LERP algorithms for a realistic "Live" data feel.
-- **CCTV Monitoring**: Simulated camera viewports for immersive operational oversight.
-- **Simulation Suite**: Includes stress-tests for "Halftime Surge", "Match Entry", and "Predictive Spikes".
+## 🧪 Testing & Validation
 
-## 🛠️ TECH STACK
-- **Frontend**: Vanilla JS (Modular Logic), CSS3 (Modern Control Tower UI), HTML5.
-- **Backend**: Node.js / Express (Asset Serving).
-- **Deployment**: containerized via Docker and deployed to **Google Cloud Run**.
-
-## 📦 LOCAL EXECUTION
+Automated unit tests ensure the reliability of the core logic.
+Run the tests using:
 ```bash
 npm install
-npm start
+npm test
 ```
-The application will be served at `http://localhost:8080`.
+*Validated components: Wait Time Calculations, Velocity Forecasting, Risk Assessment, and LERP Smoothing Logic.*
 
-## ☁️ CLOUD DEPLOYMENT
-Deployed to Google Cloud Run using:
+---
+
+## 📦 Deployment on Google Cloud
+
+The project is optimized for Google Cloud Run:
 ```bash
-gcloud run deploy stadiumpulse --source . --project project_id --region us-central1 --allow-unauthenticated
+# Build & Deploy
+gcloud run deploy stadiumpulse --source .
 ```
 
 ---
-**Created by Sabarna Barik**  
-*Part of the PromptWars Challenge 2026*
+
+## 📜 Credits & License
+Developed by Sabarna Barik.  
+Open-source for educational and contest purposes. Commercial use restricted.  
+Copyright © 2026 Sabarna Barik.

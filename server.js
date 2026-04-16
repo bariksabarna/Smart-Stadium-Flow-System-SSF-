@@ -1,38 +1,54 @@
-/**
- * Copyright © Sabarna Barik 
- * 
- * This code is open-source for **educational and non-commercial purposes only**.
- * 
- * You may:
- * - Read, study, and learn from this code.
- * - Modify or experiment with it for personal learning.
- * 
- * You may NOT:
- * - Claim this code as your own.
- * - Use this code in commercial projects or for profit without written permission.
- * - Distribute this code as your own work.
- * 
- * If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
- * For commercial use or special permissions, contact: sabarnabarik@gmail.com
- * 
- * # Copyright © 2026 Sabarna Barik
- * # Non-commercial use only. Credit required if used.
- * 
- * License:
- * This project is open-source for learning only.
- * Commercial use is prohibited.
- * Credit is required if you use any part of this code.
- */
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import compression from 'compression';
 
-const express = require('express');
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.static(path.join(__dirname, 'public')));
+/**
+ * Security Strategy: High-tier header protection
+ */
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "https://unpkg.com", "'unsafe-inline'"],
+      "style-src": ["'self'", "https://fonts.googleapis.com", "'unsafe-inline'"],
+      "font-src": ["'self'", "https://fonts.gstatic.com"],
+      "img-src": ["'self'", "data:"],
+    },
+  },
+}));
+
+/**
+ * Efficiency Strategy: Global compression
+ */
+app.use(compression());
+
+/**
+ * Efficiency Strategy: Static caching policy
+ */
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '1d',
+  setHeaders: (res, path) => {
+    if (path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0');
+    }
+  }
+}));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Health check for Cloud Run service vitality
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 app.listen(PORT, () => {

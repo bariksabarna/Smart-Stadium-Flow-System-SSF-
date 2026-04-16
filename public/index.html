@@ -42,41 +42,41 @@ Credit is required if you use any part of this code.
     <div class="pro-app-container">
         
         <!-- TOP DECK: Global Metrics -->
-        <header class="ops-header">
+        <header class="ops-header" role="banner">
             <div class="header-main">
                 <div class="logo-box">
-                    <i data-lucide="shield-check" class="ops-icon"></i>
+                    <i data-lucide="shield-check" class="ops-icon" aria-hidden="true"></i>
                 </div>
                 <div class="title-area">
                     <h1>STADIUMPULSE <span class="pro-tag">PRO</span></h1>
-                    <div class="system-status">
+                    <div class="system-status" role="status">
                         <span class="status-dot green"></span>
                         <span class="status-text">SYSTEMS NOMINAL // INTELLIGENCE ENGINE ONLINE</span>
                     </div>
                 </div>
             </div>
-            <div class="header-telemetry">
+            <div class="header-telemetry" role="group" aria-label="Global Attendance Metrics">
                 <div class="telemetry-item">
                     <span class="label">LIVE COUNT</span>
-                    <span class="value" id="total-crowd-val">42,850</span>
+                    <span class="value" id="total-crowd-val" aria-live="polite">42,850</span>
                 </div>
                 <div class="telemetry-item">
                     <span class="label">RISK LEVEL</span>
-                    <span class="value success" id="global-risk-val">LOW</span>
+                    <span class="value success" id="global-risk-val" aria-live="assertive">STABLE</span>
                 </div>
                 <div class="clock-area">
-                    <span id="live-clock-pro">17:21:09</span>
+                    <span id="live-clock-pro" aria-label="Current System Time">17:21:09</span>
                 </div>
             </div>
         </header>
 
         <!-- MAIN DECK: 3-Column Layout -->
-        <main class="ops-grid">
+        <main class="ops-grid" role="main">
             
             <!-- LEFT WING: Predictive Analysis -->
-            <aside class="ops-panel wing left-wing">
+            <aside class="ops-panel wing left-wing" role="complementary" aria-label="Predictive Analytics and Load Balancing">
                 <div class="panel-head">
-                    <i data-lucide="trending-up"></i>
+                    <i data-lucide="trending-up" aria-hidden="true"></i>
                     <h2>PREDICTIVE ANALYTICS</h2>
                 </div>
                 <div class="predictive-metrics" id="predictive-container">
@@ -92,24 +92,24 @@ Credit is required if you use any part of this code.
                 </div>
                 <div class="queue-tracking">
                     <h3>GATE LOAD BALANCING</h3>
-                    <div id="gate-load-list" class="load-list">
+                    <div id="gate-load-list" class="load-list" role="list">
                         <!-- Dynamic gate bars -->
                     </div>
                 </div>
             </aside>
 
             <!-- CENTER DECK: Map & Interaction -->
-            <section class="ops-panel center-deck">
-                <div class="panel-tabs">
-                    <button class="tab-btn active" data-tab="map">LIVE HEATMAP</button>
-                    <button class="tab-btn" data-tab="fan">FAN VIEW GUIDANCE</button>
+            <section class="ops-panel center-deck" aria-label="Visual Map and Guidance">
+                <div class="panel-tabs" role="tablist">
+                    <button class="tab-btn active" data-tab="map" role="tab" aria-selected="true" aria-controls="map-view">LIVE HEATMAP</button>
+                    <button class="tab-btn" data-tab="fan" role="tab" aria-selected="false" aria-controls="fan-view">FAN GUIDANCE</button>
                 </div>
 
-                <div class="tab-content active" id="map-view">
+                <div class="tab-content active" id="map-view" role="tabpanel">
                     <div class="map-wrapper-pro">
-                        <div id="stadium-map-pro"></div>
+                        <div id="stadium-map-pro" aria-label="Stadium Heatmap Visualization"></div>
                         <div class="map-overlay-info">
-                            <div class="legend-pro">
+                            <div class="legend-pro" role="presentation">
                                 <div class="l-item"><span class="box green"></span> SAFE</div>
                                 <div class="l-item"><span class="box yellow"></span> MODERATE</div>
                                 <div class="l-item"><span class="box red"></span> CRITICAL</div>
@@ -118,10 +118,10 @@ Credit is required if you use any part of this code.
                     </div>
                 </div>
 
-                <div class="tab-content" id="fan-view">
+                <div class="tab-content" id="fan-view" role="tabpanel">
                     <div class="fan-controls-pro">
                         <div class="input-set">
-                            <label>ORIGIN SECTOR</label>
+                            <label for="gate-selector-pro">ORIGIN SECTOR</label>
                             <select id="gate-selector-pro">
                                 <option value="gate1">NORTH GATE</option>
                                 <option value="gate2">EAST GATE</option>
@@ -131,76 +131,75 @@ Credit is required if you use any part of this code.
                         </div>
                         <div class="input-set">
                             <label>ADVISORY NEED</label>
-                            <div class="pro-chips">
-                                <button class="pro-chip active" data-need="entry">ENTRY</button>
-                                <button class="pro-chip" data-need="food">FOOD</button>
-                                <button class="pro-chip" data-need="toilet">RESTROOM</button>
-                                <button class="pro-chip" data-need="exit">EXIT</button>
+                            <div class="pro-chips" role="group" aria-label="Select Facility Need">
+                                <button class="pro-chip active" data-need="entry" aria-pressed="true">ENTRY</button>
+                                <button class="pro-chip" data-need="food" aria-pressed="false">FOOD</button>
+                                <button class="pro-chip" data-need="toilet" aria-pressed="false">RESTROOM</button>
+                                <button class="pro-chip" data-need="exit" aria-pressed="false">EXIT</button>
                             </div>
                         </div>
                     </div>
-                    <div id="route-result-pro" class="route-result-pro">
+                    <div id="route-result-pro" class="route-result-pro" aria-live="polite">
                          <div class="placeholder-pro">SELECT PARAMETERS FOR ADVISORY</div>
                     </div>
                 </div>
             </section>
 
             <!-- RIGHT WING: Monitoring & Alerts -->
-            <aside class="ops-panel wing right-wing">
+            <aside class="ops-panel wing right-wing" role="complementary" aria-label="CCTV Monitoring and Intelligence Feed">
                 <div class="panel-head">
-                    <i data-lucide="video"></i>
+                    <i data-lucide="video" aria-hidden="true"></i>
                     <h2>LIVE MONITORING</h2>
                 </div>
-                <div class="cctv-grid">
-                    <div class="cctv-feed" id="feed-1">
+                <div class="cctv-grid" role="group" aria-label="Live CCTV Feeds">
+                    <div class="cctv-feed" id="feed-1" aria-label="CCTV Feed: North Plaza">
                         <div class="feed-label">CAM_01 // NORTH_PLAZA</div>
                         <div class="feed-overlay">REC</div>
                     </div>
-                    <div class="cctv-feed" id="feed-2">
+                    <div class="cctv-feed" id="feed-2" aria-label="CCTV Feed: West Gate">
                         <div class="feed-label">CAM_04 // WEST_GATE</div>
                         <div class="feed-overlay">LIVE</div>
                     </div>
                 </div>
                 <div class="panel-head sub">
-                    <i data-lucide="zap"></i>
+                    <i data-lucide="zap" aria-hidden="true"></i>
                     <h2>INTELLIGENCE FEED</h2>
                 </div>
-                <div id="alerts-container-pro" class="alerts-feed-pro">
+                <div id="alerts-container-pro" class="alerts-feed-pro" aria-live="assertive" aria-relevant="additions">
                     <!-- Predictive alerts here -->
                 </div>
             </aside>
         </main>
 
         <!-- BOTTOM DECK: Master Controls -->
-        <footer class="ops-footer">
+        <footer class="ops-footer" role="contentinfo">
             <div class="control-label">MASTER OPERATIONS CONSOLE</div>
-            <div class="dock-controls">
+            <div class="dock-controls" role="group" aria-label="Simulation and System Controls">
                 <div class="control-grp">
                     <span class="grp-label">SCENARIOS</span>
-                    <button class="ops-btn" onclick="startSimulation('halftime')">HALFTIME SURGE</button>
-                    <button class="ops-btn" onclick="startSimulation('entryMatch')">MATCH ENTRY</button>
-                    <button class="ops-btn risk" onclick="startSimulation('spikeGate4')">GATE OVERLOAD</button>
-                    <button class="ops-btn info" onclick="startSimulation('predictiveSpike')">PRED. SPIKE TEST</button>
+                    <button class="ops-btn" onclick="startSimulation('halftime')" aria-label="Trigger Halftime Surge Scenario">HALFTIME SURGE</button>
+                    <button class="ops-btn" onclick="startSimulation('entryMatch')" aria-label="Trigger Match Entry Scenario">MATCH ENTRY</button>
+                    <button class="ops-btn risk" onclick="startSimulation('spikeGate4')" aria-label="Trigger Gate Overload Scenario">GATE OVERLOAD</button>
+                    <button class="ops-btn info" onclick="startSimulation('predictiveSpike')" aria-label="Trigger Predictive Stress Test">PRED. SPIKE TEST</button>
                 </div>
                 <div class="control-grp">
                     <span class="grp-label">SYSTEM</span>
-                    <button class="ops-btn hollow" onclick="resetDemo()">HARD RESET</button>
+                    <button class="ops-btn hollow" onclick="resetDemo()" aria-label="Hard Reset System State">HARD RESET</button>
                 </div>
-                <div class="ops-console" id="admin-log-pro">
+                <div class="ops-console" id="admin-log-pro" role="log" aria-live="polite" aria-label="System Event Log">
                     <div class="line sys">> INITIALIZING PULSE_PRO_CORE_V2... SUCCESS.</div>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/intelligence.js"></script>
-    <script src="js/state.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/simulations.js"></script>
-    <script src="js/app.js"></script>
+    <!-- Main Application Entry (ES6 Module) -->
+    <script type="module" src="js/app.js"></script>
     <script>
-        lucide.createIcons();
+        // Lucide icons initialization
+        window.addEventListener('load', () => {
+             lucide.createIcons();
+        });
     </script>
 </body>
 </html>

@@ -1,35 +1,14 @@
-/**
- * Copyright © Sabarna Barik 
- * 
- * This code is open-source for **educational and non-commercial purposes only**.
- * 
- * You may:
- * - Read, study, and learn from this code.
- * - Modify or experiment with it for personal learning.
- * 
- * You may NOT:
- * - Claim this code as your own.
- * - Use this code in commercial projects or for profit without written permission.
- * - Distribute this code as your own work.
- * 
- * If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
- * For commercial use or special permissions, contact: sabarnabarik@gmail.com
- * 
- * # Copyright © 2026 Sabarna Barik
- * # Non-commercial use only. Credit required if used.
- * 
- * License:
- * This project is open-source for learning only.
- * Commercial use is prohibited.
- * Credit is required if you use any part of this code.
- */
+import { updateSystemState, stadiumState } from './state.js';
+import { addSystemLog } from './ui.js';
+import { Intelligence } from './intelligence.js';
 
 /**
  * StadiumPulse Pro Simulation Scenarios
+ * Used for stress tests and operational drills
  */
 
-window.startSimulation = (type) => {
-    window.addSystemLog(`EXEC_SCENARIO: ${type.toUpperCase()}`, 'action');
+export const startSimulation = (type) => {
+    addSystemLog(`EXEC_SCENARIO: ${type.toUpperCase()}`, 'action');
     
     switch(type) {
         case 'halftime':
@@ -44,11 +23,13 @@ window.startSimulation = (type) => {
         case 'predictiveSpike':
             simulatePredictiveSpike();
             break;
+        default:
+            addSystemLog(`UNKNOWN_SCENARIO: ${type}`, 'sys');
     }
 };
 
 function simulateHalftimePro() {
-    window.updateSystemState({
+    updateSystemState({
         zones: {
             food_court_a: { crowd: 95 },
             food_court_b: { crowd: 98 },
@@ -58,7 +39,7 @@ function simulateHalftimePro() {
         totalCrowd: 45200
     });
     
-    window.stadiumState.alerts.unshift({
+    stadiumState.alerts.unshift({
         id: Date.now(),
         type: 'critical',
         title: 'OVERLOAD: FOOD_ZONE_B',
@@ -68,7 +49,7 @@ function simulateHalftimePro() {
 }
 
 function simulateEntrySurgePro() {
-    window.updateSystemState({
+    updateSystemState({
         gates: {
             gate1: { crowd: 75 },
             gate2: { crowd: 82 },
@@ -77,7 +58,7 @@ function simulateEntrySurgePro() {
         }
     });
     
-    window.stadiumState.alerts.unshift({
+    stadiumState.alerts.unshift({
         id: Date.now(),
         type: 'warning',
         title: 'SECTOR_INFLOW_ALARM',
@@ -87,14 +68,13 @@ function simulateEntrySurgePro() {
 }
 
 function simulateGateSpikePro(gateId) {
-    const gate = window.stadiumState.gates[gateId];
-    window.updateSystemState({
+    updateSystemState({
         gates: {
             [gateId]: { crowd: 100 }
         }
     });
     
-    window.stadiumState.alerts.unshift({
+    stadiumState.alerts.unshift({
         id: Date.now(),
         type: 'critical',
         title: `GATE_LOCKDOWN: ${gateId.toUpperCase()}`,
@@ -105,40 +85,40 @@ function simulateGateSpikePro(gateId) {
 
 /**
  * Pro Predictive Scenario
- * Gradually increases crowd to test the forecasting engine
+ * Gradually increases crowd to test the forecasting engine's accuracy
  */
 function simulatePredictiveSpike() {
-    window.addSystemLog('STRESS_TEST: GRADUAL_INFLOW_ACCELERATION', 'sys');
+    addSystemLog('STRESS_TEST: GRADUAL_INFLOW_ACCELERATION', 'sys');
     
     let current = 40;
     const interval = setInterval(() => {
         current += 5;
-        window.updateSystemState({
+        updateSystemState({
             gates: { gate2: { crowd: current } }
         });
         
         if (current >= 100) {
             clearInterval(interval);
-            window.addSystemLog('STRESS_TEST_COMPLETE: THRESHOLD_REACHED.', 'sys');
+            addSystemLog('STRESS_TEST_COMPLETE: THRESHOLD_REACHED.', 'sys');
         }
     }, 1000);
 
-    // After 3 seconds, the prediction engine should detect the high velocity
+    // After 3.5 seconds, verify the prediction engine detected the velocity
     setTimeout(() => {
-        const pred = window.Intelligence.predictions['gate_gate2'] || { value: 0 };
+        const pred = Intelligence.predictions['gate_gate2'] || { value: 0 };
         if (pred.value > 80) {
-            window.stadiumState.alerts.unshift({
+            stadiumState.alerts.unshift({
                 id: Date.now(),
                 type: 'prediction',
                 title: 'PREDICTIVE_ALERT: GATE_2',
-                body: `Forecasting 90%+ load in < 90s based on current velocity of +5%/s.`,
+                body: `Forecasting 90%+ load in < 90s based on velocity of +5%/s.`,
                 time: 'JUST NOW'
             });
         }
     }, 3500);
 }
 
-window.resetDemo = () => {
-    window.addSystemLog('SYS_CMD: FULL_RECONSTRUCTION...', 'sys');
+export const resetDemo = () => {
+    addSystemLog('SYS_CMD: FULL_RECONSTRUCTION...', 'sys');
     setTimeout(() => location.reload(), 800);
 };

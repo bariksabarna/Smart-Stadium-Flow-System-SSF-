@@ -1,61 +1,47 @@
-/**
- * Copyright © Sabarna Barik 
- * 
- * This code is open-source for **educational and non-commercial purposes only**.
- * 
- * You may:
- * - Read, study, and learn from this code.
- * - Modify or experiment with it for personal learning.
- * 
- * You may NOT:
- * - Claim this code as your own.
- * - Use this code in commercial projects or for profit without written permission.
- * - Distribute this code as your own work.
- * 
- * If you use or adapt this code, you **must give credit** to the original author: Sabarna Barik
- * For commercial use or special permissions, contact: sabarnabarik@gmail.com
- * 
- * # Copyright © 2026 Sabarna Barik
- * # Non-commercial use only. Credit required if used.
- * 
- * License:
- * This project is open-source for learning only.
- * Commercial use is prohibited.
- * Credit is required if you use any part of this code.
- */
+import { addSystemLog } from './ui.js';
+import { updateSystemState, stadiumState } from './state.js';
+import { startSimulation, resetDemo } from './simulations.js';
 
 /**
  * StadiumPulse Pro Main Entry Point
  */
 
 window.addEventListener('load', () => {
-    console.log('StadiumPulse Pro Operational');
+    console.log('StadiumPulse Pro | Operational');
     
     // Greeting log
     setTimeout(() => {
-        window.addSystemLog('STADIUMPULSE_PRO_V2: ALL MODULES NOMINAL', 'sys');
-        window.addSystemLog('INTELLIGENCE_ENGINE: READY_FOR_FORECASTING', 'sys');
+        addSystemLog('STADIUMPULSE_PRO_CORE: ALL MODULES NOMINAL', 'sys');
+        addSystemLog('INTELLIGENCE_ENGINE: READY_FOR_FORECASTING', 'sys');
     }, 1000);
 
-    // Natural Crowd Fluctuation
+    // Natural Crowd Fluctuation Simulation
     setInterval(() => {
         fluctuateProCrowd();
-    }, 4000);
+    }, 4500);
 });
 
-function fluctuateProCrowd() {
-    // Only fluctuate randomly if no scenario is pinning values
-    const gateIds = Object.keys(window.stadiumState.gates);
-    const randomGate = gateIds[Math.floor(Math.random() * gateIds.length)];
-    const currentTarget = window.stadiumState.gates[randomGate].targetCrowd;
-    
-    // Jitter target +/- 3
-    const delta = Math.floor(Math.random() * 7) - 3;
-    const newTarget = Math.max(5, Math.min(100, currentTarget + delta));
+/**
+ * Exposing simulation controls to window for HTML event handlers
+ * This maintains compatibility with the existing index.html onClick events
+ */
+window.startSimulation = startSimulation;
+window.resetDemo = resetDemo;
 
-    window.updateSystemState({
-        gates: {
-            [randomGate]: { crowd: newTarget }
-        }
-    });
+function fluctuateProCrowd() {
+    const gateIds = Object.keys(stadiumState.gates);
+    const randomGateId = gateIds[Math.floor(Math.random() * gateIds.length)];
+    const gate = stadiumState.gates[randomGateId];
+    
+    // Only jitter if not in a high-density state
+    if (gate.targetCrowd < 90) {
+        const delta = Math.floor(Math.random() * 9) - 4; // -4 to +4 jitter
+        const newTarget = Math.max(5, Math.min(100, gate.targetCrowd + delta));
+
+        updateSystemState({
+            gates: {
+                [randomGateId]: { crowd: newTarget }
+            }
+        });
+    }
 }
