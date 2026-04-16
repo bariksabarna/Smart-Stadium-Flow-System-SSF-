@@ -6,14 +6,26 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lint": "eslint public/js",
+    "format": "prettier --write 'public/js/**/*.js'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sabarna Barik",
   "license": "ISC",
   "dependencies": {
     "compression": "^1.8.1",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.3.2",
     "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "globals": "^17.5.0",
+    "prettier": "^3.5.1"
   }
 }

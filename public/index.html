@@ -29,16 +29,28 @@ Credit is required if you use any part of this code.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StadiumPulse Pro | Operational Excellence</title>
-    <meta name="description" content="Advanced predictive stadium operations and crowd control system.">
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Professional predictive stadium operations dashboard for real-time crowd management and security analytics.">
+    <meta name="keywords" content="stadium operations, crowd control, predictive analytics, smart stadium, security dashboard">
+    <meta name="author" content="Sabarna Barik">
+    <meta property="og:title" content="StadiumPulse Pro | Operational Excellence">
+    <meta property="og:description" content="Advanced predictive stadium operations and crowd control system.">
+    <meta property="og:type" content="website">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#818cf8">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="pro-ops-theme">
+    <a href="#main-content" class="skip-link">Skip to Content</a>
     <div class="pro-app-container">
         
         <!-- TOP DECK: Global Metrics -->
@@ -71,7 +83,7 @@ Credit is required if you use any part of this code.
         </header>
 
         <!-- MAIN DECK: 3-Column Layout -->
-        <main class="ops-grid" role="main">
+        <main class="ops-grid" role="main" id="main-content">
             
             <!-- LEFT WING: Predictive Analysis -->
             <aside class="ops-panel wing left-wing" role="complementary" aria-label="Predictive Analytics and Load Balancing">
@@ -199,6 +211,13 @@ Credit is required if you use any part of this code.
         // Lucide icons initialization
         window.addEventListener('load', () => {
              lucide.createIcons();
+             
+             // PWA Service Worker Registration
+             if ('serviceWorker' in navigator) {
+                 navigator.serviceWorker.register('/sw.js')
+                     .then(reg => console.log('[PWA] ServiceWorker Operational', reg.scope))
+                     .catch(err => console.error('[PWA] ServiceWorker Failure', err));
+             }
         });
     </script>
 </body>

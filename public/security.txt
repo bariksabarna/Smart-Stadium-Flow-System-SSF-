@@ -1,0 +1,5 @@
+Contact: mailto:sabarnabarik@gmail.com
+Expires: 2027-04-16T15:00:00.000Z
+Preferred-Languages: en
+Canonical: https://stadiumpulse-pro.a.run.app/security.txt
+Policy: https://github.com/bariksabarna/Smart-Stadium-Flow-System-SSF-/blob/main/SECURITY.md

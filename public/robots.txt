@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /api/
+Allow: /
+
+Sitemap: https://stadiumpulse-pro.a.run.app/sitemap.xml

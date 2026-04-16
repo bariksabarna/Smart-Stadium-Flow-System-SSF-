@@ -22,16 +22,29 @@
 # Commercial use is prohibited.
 # Credit is required if you use any part of this code.
 
-FROM node:18-alpine
+# Stage 1: Build & Dependencies
+FROM node:20-slim AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
 
+# Stage 2: Final Runtime
+FROM node:20-slim
 WORKDIR /app
 
-COPY package*.json ./
+# Non-root security
+RUN groupadd -r nodejs && useradd -r -g nodejs nodejs && \
+    mkdir -p /app && chown -R nodejs:nodejs /app
+USER nodejs
 
-RUN npm install --production
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --chown=nodejs:nodejs . .
 
-COPY . .
-
+ENV NODE_ENV=production
+ENV PORT=8080
 EXPOSE 8080
 
-CMD [ "node", "server.js" ]
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD node -e "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1))"
+
+CMD ["node", "server.js"]

@@ -1,0 +1,17 @@
+{
+  "name": "StadiumPulse Pro | Operational Excellence",
+  "short_name": "StadiumPulse",
+  "description": "Advanced predictive stadium operations and crowd control system.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#818cf8",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/parakeet/512/FAB005/shield.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

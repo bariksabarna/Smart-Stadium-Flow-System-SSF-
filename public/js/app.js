@@ -8,7 +8,7 @@ import { startSimulation, resetDemo } from './simulations.js';
 
 window.addEventListener('load', () => {
     console.log('StadiumPulse Pro | Operational');
-    
+
     // Greeting log
     setTimeout(() => {
         addSystemLog('STADIUMPULSE_PRO_CORE: ALL MODULES NOMINAL', 'sys');
@@ -32,7 +32,7 @@ function fluctuateProCrowd() {
     const gateIds = Object.keys(stadiumState.gates);
     const randomGateId = gateIds[Math.floor(Math.random() * gateIds.length)];
     const gate = stadiumState.gates[randomGateId];
-    
+
     // Only jitter if not in a high-density state
     if (gate.targetCrowd < 90) {
         const delta = Math.floor(Math.random() * 9) - 4; // -4 to +4 jitter
@@ -40,8 +40,8 @@ function fluctuateProCrowd() {
 
         updateSystemState({
             gates: {
-                [randomGateId]: { crowd: newTarget }
-            }
+                [randomGateId]: { crowd: newTarget },
+            },
         });
     }
 }

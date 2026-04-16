@@ -45,3 +45,14 @@ test('Intelligence: Routing Recommendation', (t) => {
   const noRec = Intelligence.getRecommendation('gate1', 20);
   assert.strictEqual(noRec, null, 'Low crowd should not trigger recommendation');
 });
+
+test('Intelligence: Edge Cases', (t) => {
+  // Test NaN smoothing guard
+  assert.strictEqual(Intelligence.smooth(NaN, 50), 50, 'NaN current should return target');
+  
+  // Test nearly instant updates (dt near zero)
+  const id = 'fast_gate';
+  Intelligence.predict(id, 10);
+  const quickResult = Intelligence.predict(id, 20); // Immediate follow-up
+  assert.ok(!isNaN(quickResult), 'Predict should handle rapid-fire updates');
+});
